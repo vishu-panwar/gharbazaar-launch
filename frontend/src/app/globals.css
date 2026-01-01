@@ -28,65 +28,30 @@
   .font-heading {
     font-family: var(--font-manrope);
   }
-}
-
-@layer components {
-  /* Add any custom component styles here */
-  .btn-primary {
-    @apply bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors;
-  }
-}
-
-/* Ensure all Tailwind classes are available */
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
   
   /* Improve line heights for better text rendering */
   h1, h2, h3, h4, h5, h6 {
     line-height: 1.2;
-    padding-bottom: 2px; /* Prevent descender clipping */
+    padding-bottom: 2px;
   }
   
   p, span, div {
     line-height: 1.6;
-    padding-bottom: 1px; /* Prevent descender clipping */
+    padding-bottom: 1px;
   }
   
   /* Fix gradient text clipping */
   .bg-clip-text {
     -webkit-background-clip: text;
     background-clip: text;
-    padding-bottom: 4px; /* Extra space for gradient text */
-    margin-bottom: -4px; /* Compensate for padding */
-  }
-  
-  /* Custom animations for the new dashboard */
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-  }
-  
-  @keyframes float-delayed {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); }
-  }
-  
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
-  
-  .animate-float-delayed {
-    animation: float-delayed 8s ease-in-out infinite;
-    animation-delay: 2s;
+    padding-bottom: 4px;
+    margin-bottom: -4px;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-primary-600 hover:bg-primary-700 text-white font-medium px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg transition-colors text-sm sm:text-base;
+    @apply bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors;
   }
   
   .btn-secondary {
@@ -133,118 +98,64 @@
   }
 }
 
-/* Premium Testimonials Infinite Sliding Animation */
-@keyframes slide-infinite {
-  0% {
-    transform: translateX(0);
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
   }
-  100% {
-    transform: translateX(-50%);
+  
+  /* Line clamp utility for message truncation */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }
 
-.animate-slide-infinite {
-  animation: slide-infinite 60s linear infinite;
-}
-
-/* Pause animation on hover for better UX */
-.animate-slide-infinite:hover {
-  animation-play-state: paused;
-}
-
-/* Line clamp utility for message truncation */
-.line-clamp-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* Ultra-Modern Floating Animations */
+/* Custom animations */
 @keyframes float {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-20px) rotate(180deg);
-  }
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
 }
 
 @keyframes float-delayed {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-30px) rotate(-180deg);
-  }
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
 }
 
-@keyframes float-gentle {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
+@keyframes slide-infinite {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 @keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(59, 130, 246, 0.6);
-  }
+  0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.6); }
 }
 
 @keyframes gradient-shift {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
 @keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
-/* Premium Blue-Purple Glow Effects */
-@keyframes premium-glow-blue {
-  0%, 100% {
-    box-shadow: 0 0 30px rgba(59, 130, 246, 0.4), 0 0 60px rgba(59, 130, 246, 0.2);
-  }
-  50% {
-    box-shadow: 0 0 50px rgba(59, 130, 246, 0.6), 0 0 100px rgba(59, 130, 246, 0.3);
-  }
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-5 * (320px + 16px))); }
 }
 
-@keyframes premium-glow-purple {
-  0%, 100% {
-    box-shadow: 0 0 30px rgba(147, 51, 234, 0.4), 0 0 60px rgba(147, 51, 234, 0.2);
-  }
-  50% {
-    box-shadow: 0 0 50px rgba(147, 51, 234, 0.6), 0 0 100px rgba(147, 51, 234, 0.3);
-  }
+@keyframes blob {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(0px, 0px) scale(1); }
 }
 
-@keyframes premium-pulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.05);
-    opacity: 0.8;
-  }
-}
-
+/* Animation classes */
 .animate-float {
   animation: float 6s ease-in-out infinite;
 }
@@ -254,8 +165,12 @@
   animation-delay: 2s;
 }
 
-.animate-float-gentle {
-  animation: float-gentle 4s ease-in-out infinite;
+.animate-slide-infinite {
+  animation: slide-infinite 60s linear infinite;
+}
+
+.animate-slide-infinite:hover {
+  animation-play-state: paused;
 }
 
 .animate-pulse-glow {
@@ -267,35 +182,27 @@
   animation: gradient-shift 8s ease infinite;
 }
 
-.animate-shimmer {
-  position: relative;
-  overflow: hidden;
+.animate-scroll {
+  animation: scroll 25s linear infinite;
 }
 
-.animate-shimmer::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  animation: shimmer 2s infinite;
+.animate-scroll:hover {
+  animation-play-state: paused;
 }
 
-.animate-premium-glow-blue {
-  animation: premium-glow-blue 4s ease-in-out infinite;
+.animate-blob {
+  animation: blob 7s infinite;
 }
 
-.animate-premium-glow-purple {
-  animation: premium-glow-purple 4s ease-in-out infinite;
+.animation-delay-2000 {
+  animation-delay: 2s;
 }
 
-.animate-premium-pulse {
-  animation: premium-pulse 3s ease-in-out infinite;
+.animation-delay-4000 {
+  animation-delay: 4s;
 }
 
-/* Modern Glassmorphism Effects */
+/* Modern effects */
 .glass-effect {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -303,76 +210,13 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Enhanced Shadow Effects */
 .shadow-3xl {
   box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25);
 }
 
-/* Gradient Text Effect */
 .gradient-text {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-
-/* Modern Button Hover Effects */
-.modern-button {
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease;
-}
-
-.modern-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s;
-}
-
-.modern-button:hover::before {
-  left: 100%;
-}
-
-/* Typing Animation */
-@keyframes typing-dot {
-  0%, 60%, 100% {
-    transform: translateY(0);
-  }
-  30% {
-    transform: translateY(-10px);
-  }
-}
-
-.typing-indicator {
-  animation: typing-dot 1.4s infinite ease-in-out;
-}
-
-.typing-indicator:nth-child(2) {
-  animation-delay: 0.2s;
-}
-
-.typing-indicator:nth-child(3) {
-  animation-delay: 0.4s;
-}
-  /* Scroll animation for property details carousel */
-  @keyframes scroll {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(calc(-5 * (320px + 16px)));
-    }
-  }
-  
-  .animate-scroll {
-    animation: scroll 25s linear infinite;
-  }
-  
-  .animate-scroll:hover {
-    animation-play-state: paused;
-  }
