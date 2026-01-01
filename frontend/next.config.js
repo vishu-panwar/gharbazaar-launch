@@ -32,7 +32,7 @@ const nextConfig = {
         hostname: '**.googleapis.com',
       },
     ],
-    unoptimized: true, // Temporary fix for deployment
+    unoptimized: false, // Enable optimization for production
   },
   
   // Environment variables
@@ -48,8 +48,8 @@ const nextConfig = {
   
   // Experimental features for better performance
   experimental: {
-    // optimizeCss: true, // Temporarily disabled due to critters dependency issue
     optimizePackageImports: ['lucide-react', 'firebase'],
+    missingSuspenseWithCSRBailout: false,
   },
   
   // Compression

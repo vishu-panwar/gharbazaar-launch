@@ -220,7 +220,7 @@ export default function SignupPage() {
             {/* Mobile Logo */}
             <div className="lg:hidden text-center mb-6">
               <div className="inline-flex items-center space-x-3 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center">
+                <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg">
                   <Building2 className="w-5 h-5 text-white" />
                 </div>
                 <h1 className="text-xl font-bold text-gray-900 dark:text-white">GharBazaar</h1>
