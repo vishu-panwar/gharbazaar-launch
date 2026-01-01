@@ -32,6 +32,7 @@ const nextConfig = {
         hostname: '**.googleapis.com',
       },
     ],
+    unoptimized: true, // Temporary fix for deployment
   },
   
   // Environment variables
