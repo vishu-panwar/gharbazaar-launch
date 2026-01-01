@@ -122,13 +122,6 @@ export function Header() {
             <Link href="/" className="flex items-center space-x-3 group">
               <Logo size="md" showText={true} className="transition-transform duration-300 group-hover:scale-105" />
             </Link>
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold bg-gradient-to-r from-teal-600 via-emerald-600 to-blue-600 bg-clip-text text-transparent">
-                  GharBazaar
-                </h1>
-              </div>
-            </Link>
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center space-x-1">

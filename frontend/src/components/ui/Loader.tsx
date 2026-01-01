@@ -79,9 +79,9 @@ export default function Loader({
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Floating Orbs */}
-        <div className="absolute top-20 left-20 w-32 h-32 bg-teal-200/20 rounded-full blur-xl animate-float-slow"></div>
-        <div className="absolute bottom-32 right-32 w-24 h-24 bg-emerald-200/20 rounded-full blur-xl animate-float-delayed"></div>
-        <div className="absolute top-1/2 left-10 w-16 h-16 bg-blue-200/20 rounded-full blur-lg animate-float-fast"></div>
+        <div className="absolute top-20 left-20 w-32 h-32 bg-teal-200/20 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute bottom-32 right-32 w-24 h-24 bg-emerald-200/20 rounded-full blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-1/2 left-10 w-16 h-16 bg-blue-200/20 rounded-full blur-lg animate-pulse" style={{ animationDelay: '1s' }}></div>
         
         {/* Subtle Grid Pattern */}
         <div 
@@ -107,7 +107,7 @@ export default function Loader({
           `}
         >
           {/* Logo Glow Effect */}
-          <div className="absolute inset-0 bg-gradient-to-r from-teal-400/20 via-emerald-400/20 to-blue-400/20 rounded-3xl blur-2xl scale-110 animate-pulse-slow"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-teal-400/20 via-emerald-400/20 to-blue-400/20 rounded-3xl blur-2xl scale-110 animate-pulse"></div>
           
           {/* Logo Background */}
           <div className="relative w-24 h-24 lg:w-32 lg:h-32 bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/50 flex items-center justify-center overflow-hidden">
@@ -123,7 +123,7 @@ export default function Loader({
             </div>
             
             {/* Shimmer Effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full animate-shimmer"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full animate-pulse"></div>
           </div>
         </div>
 
@@ -193,9 +193,9 @@ export default function Loader({
 
           {/* Floating Dots Animation */}
           <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2">
-            <div className="w-2 h-2 bg-teal-400 rounded-full animate-bounce-1"></div>
-            <div className="w-2 h-2 bg-emerald-400 rounded-full animate-bounce-2"></div>
-            <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce-3"></div>
+            <div className="w-2 h-2 bg-teal-400 rounded-full animate-bounce"></div>
+            <div className="w-2 h-2 bg-emerald-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+            <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
           </div>
         </div>
 
@@ -233,98 +233,6 @@ export default function Loader({
         </div>
       </div>
 
-      {/* Custom Styles */}
-      <style jsx>{`
-        @keyframes float-slow {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(180deg); }
-        }
-        
-        @keyframes float-delayed {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-15px) rotate(-180deg); }
-        }
-        
-        @keyframes float-fast {
-          0%, 100% { transform: translateY(0px) scale(1); }
-          50% { transform: translateY(-10px) scale(1.1); }
-        }
-        
-        @keyframes shimmer {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-        
-        @keyframes pulse-slow {
-          0%, 100% { opacity: 0.3; }
-          50% { opacity: 0.6; }
-        }
-        
-        @keyframes bounce-1 {
-          0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
-          40% { transform: scale(1.2); opacity: 1; }
-        }
-        
-        @keyframes bounce-2 {
-          0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
-          40% { transform: scale(1.2); opacity: 1; }
-        }
-        
-        @keyframes bounce-3 {
-          0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
-          40% { transform: scale(1.2); opacity: 1; }
-        }
-        
-        .animate-float-slow {
-          animation: float-slow 6s ease-in-out infinite;
-        }
-        
-        .animate-float-delayed {
-          animation: float-delayed 8s ease-in-out infinite;
-          animation-delay: 2s;
-        }
-        
-        .animate-float-fast {
-          animation: float-fast 4s ease-in-out infinite;
-          animation-delay: 1s;
-        }
-        
-        .animate-shimmer {
-          animation: shimmer 2s ease-in-out infinite;
-        }
-        
-        .animate-pulse-slow {
-          animation: pulse-slow 3s ease-in-out infinite;
-        }
-        
-        .animate-bounce-1 {
-          animation: bounce-1 1.4s ease-in-out infinite;
-        }
-        
-        .animate-bounce-2 {
-          animation: bounce-2 1.4s ease-in-out infinite;
-          animation-delay: 0.2s;
-        }
-        
-        .animate-bounce-3 {
-          animation: bounce-3 1.4s ease-in-out infinite;
-          animation-delay: 0.4s;
-        }
-        
-        /* Reduced motion support */
-        @media (prefers-reduced-motion: reduce) {
-          .animate-float-slow,
-          .animate-float-delayed,
-          .animate-float-fast,
-          .animate-shimmer,
-          .animate-pulse-slow,
-          .animate-bounce-1,
-          .animate-bounce-2,
-          .animate-bounce-3 {
-            animation: none;
-          }
-        }
-      `}</style>
     </div>
   )
 }
