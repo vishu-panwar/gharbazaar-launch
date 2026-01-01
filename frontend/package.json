@@ -16,9 +16,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "analyze": "ANALYZE=true npm run build",
-    "clean": "if exist .next rmdir /s /q .next && if exist out rmdir /s /q out && if exist node_modules\\.cache rmdir /s /q node_modules\\.cache",
+    "clean": "rimraf .next out node_modules/.cache",
     "precommit": "npm run lint && npm run type-check",
-    "prebuild": "npm run clean",
     "postbuild": "echo 'Build completed successfully!'",
     "test": "echo 'No tests specified yet'",
     "dev:turbo": "next dev --turbo",
@@ -56,6 +55,7 @@
     "eslint": "^8.56.0",
     "eslint-config-next": "14.0.4",
     "postcss": "^8.4.32",
+    "rimraf": "^5.0.5",
     "tailwindcss": "^3.4.0",
     "typescript": "^5.3.3"
   }
