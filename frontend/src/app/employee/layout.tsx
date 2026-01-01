@@ -18,7 +18,8 @@ import {
   Search,
   Sun,
   Moon,
-  Monitor
+  Monitor,
+  Building2
 } from 'lucide-react'
 
 export default function EmployeeLayout({ children }: { children: React.ReactNode }) {
@@ -131,11 +132,9 @@ export default function EmployeeLayout({ children }: { children: React.ReactNode
           <div className="flex items-center justify-between px-6 py-6 border-b border-gray-200 dark:border-gray-800">
             <Link href="/" className="flex items-center space-x-4">
               <div className="relative">
-                <img 
-                  src="/images/gharbazaar logo.jpeg" 
-                  alt="GharBazaar Logo" 
-                  className="h-12 w-12 rounded-2xl shadow-lg object-cover"
-                />
+                <div className="h-12 w-12 bg-gradient-to-br from-teal-500 to-emerald-600 rounded-2xl shadow-lg flex items-center justify-center">
+                  <Building2 className="w-6 h-6 text-white" />
+                </div>
                 <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white dark:border-gray-950"></div>
               </div>
               <div>

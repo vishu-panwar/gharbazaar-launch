@@ -24,6 +24,7 @@ import {
   Sparkles,
   Shield,
   Briefcase,
+  Building2,
 } from 'lucide-react'
 
 export default function EmployeeDashboardPage() {
@@ -178,11 +179,9 @@ export default function EmployeeDashboardPage() {
             <div className="space-y-6">
               <div className="flex items-center space-x-3">
                 <div className="p-3 bg-white/20 backdrop-blur-sm rounded-2xl">
-                  <img 
-                    src="/images/gharbazaar logo.jpeg" 
-                    alt="GharBazaar Logo" 
-                    className="h-8 w-8 rounded-xl object-cover"
-                  />
+                  <div className="h-8 w-8 bg-gradient-to-br from-teal-500 to-emerald-600 rounded-xl flex items-center justify-center">
+                    <Building2 className="w-4 h-4 text-white" />
+                  </div>
                 </div>
                 <div>
                   <div className="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-2">

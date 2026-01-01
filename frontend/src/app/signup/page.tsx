@@ -17,14 +17,12 @@ import {
   Building2,
   Sparkles,
   Star,
-  CheckCircle,
   Gift
 } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
 import { useLoader } from '@/components/GlobalLoader'
 
 export default function SignupPage() {
-  const router = useRouter()
   const { signup, loginWithGoogle } = useAuth()
   const { showLoader } = useLoader()
 

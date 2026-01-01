@@ -30,7 +30,8 @@ import {
   UserCheck, 
   Briefcase, 
   Home, 
-  Target
+  Target,
+  Megaphone
 } from 'lucide-react'
 import toast from 'react-hot-toast'
 
@@ -232,11 +233,9 @@ export default function PartnerSignupPage() {
           {/* Logo */}
           <div className="flex items-center space-x-4 mb-12">
             <div className="relative">
-              <img 
-                src="/images/gharbazaar logo.jpeg" 
-                alt="GharBazaar Logo" 
-                className="h-16 w-16 rounded-3xl shadow-2xl object-cover border-4 border-white/20"
-              />
+              <div className="h-16 w-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-3xl shadow-2xl border-4 border-white/20 flex items-center justify-center">
+                <Megaphone className="w-8 h-8 text-white" />
+              </div>
               <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full border-2 border-white flex items-center justify-center">
                 <Crown className="w-3 h-3 text-white" />
               </div>
@@ -322,11 +321,9 @@ export default function PartnerSignupPage() {
         <div className="w-full max-w-md">
           {/* Mobile Logo */}
           <div className="lg:hidden flex items-center justify-center space-x-3 mb-8">
-            <img 
-              src="/images/gharbazaar logo.jpeg" 
-              alt="GharBazaar Logo" 
-              className="h-12 w-12 rounded-2xl shadow-lg object-cover"
-            />
+            <div className="h-12 w-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl shadow-lg flex items-center justify-center">
+              <Megaphone className="w-6 h-6 text-white" />
+            </div>
             <div>
               <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
                 GharBazaar

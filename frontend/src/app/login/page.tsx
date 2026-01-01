@@ -13,7 +13,6 @@ import {
   ArrowLeft,
   Shield,
   Users,
-  CheckCircle,
   Building2,
   Sparkles,
   Star
@@ -22,7 +21,6 @@ import { useAuth } from '@/contexts/AuthContext'
 import { useLoader } from '@/components/GlobalLoader'
 
 export default function LoginPage() {
-  const router = useRouter()
   const { login, loginWithGoogle } = useAuth()
   const { showLoader } = useLoader()
 

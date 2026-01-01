@@ -90,11 +90,9 @@ export default function GroundPartnerSignupPage() {
         <div className="relative z-10 flex flex-col justify-center">
           <div className="mb-12">
             <div className="flex items-center space-x-4 mb-6">
-              <img 
-                src="/images/gharbazaar logo.jpeg" 
-                alt="GharBazaar Logo" 
-                className="h-16 w-16 rounded-2xl shadow-lg object-cover"
-              />
+              <div className="h-16 w-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl shadow-lg flex items-center justify-center">
+                <Users className="w-8 h-8 text-white" />
+              </div>
               <div>
                 <h1 className="text-3xl font-bold">GharBazaar</h1>
                 <p className="text-blue-200">Ground Partner Portal</p>
@@ -140,11 +138,9 @@ export default function GroundPartnerSignupPage() {
           {/* Mobile Logo */}
           <div className="lg:hidden text-center mb-8">
             <div className="flex items-center justify-center mb-4">
-              <img 
-                src="/images/gharbazaar logo.jpeg" 
-                alt="GharBazaar Logo" 
-                className="h-16 w-16 rounded-2xl shadow-lg object-cover"
-              />
+              <div className="h-16 w-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl shadow-lg flex items-center justify-center">
+                <Users className="w-8 h-8 text-white" />
+              </div>
             </div>
             <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
               Ground Partner Portal

@@ -174,11 +174,9 @@ export default function GroundPartnerRegistrationPage() {
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center mb-4">
-            <img
-              src="/images/gharbazaar logo.jpeg"
-              alt="GharBazaar Logo"
-              className="h-16 w-16 rounded-2xl shadow-lg object-cover"
-            />
+            <div className="h-16 w-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl shadow-lg flex items-center justify-center">
+              <Users className="w-8 h-8 text-white" />
+            </div>
           </div>
           <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
             Complete Your Registration

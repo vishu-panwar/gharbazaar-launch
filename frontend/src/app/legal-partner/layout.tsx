@@ -147,11 +147,9 @@ export default function LegalPartnerLayout({ children }: { children: React.React
           <div className="flex items-center justify-between px-6 py-6 border-b border-gray-200 dark:border-gray-800">
             <Link href="/" className="flex items-center space-x-4">
               <div className="relative">
-                <img 
-                  src="/images/gharbazaar logo.jpeg" 
-                  alt="GharBazaar Logo" 
-                  className="h-12 w-12 rounded-2xl shadow-lg object-cover"
-                />
+                <div className="h-12 w-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl shadow-lg flex items-center justify-center">
+                  <Scale className="w-6 h-6 text-white" />
+                </div>
                 <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-blue-600 rounded-full border-2 border-white dark:border-gray-950 flex items-center justify-center">
                   <Scale className="w-2 h-2 text-white" />
                 </div>
