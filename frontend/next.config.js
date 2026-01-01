@@ -11,11 +11,6 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   
-  // Disable static generation for problematic pages
-  experimental: {
-    missingSuspenseWithCSRBailout: false,
-  },
-  
   // Image optimization
   images: {
     formats: ['image/webp', 'image/avif'],
@@ -49,7 +44,6 @@ const nextConfig = {
   // Experimental features for better performance
   experimental: {
     optimizePackageImports: ['lucide-react', 'firebase'],
-    missingSuspenseWithCSRBailout: false,
   },
   
   // Compression
