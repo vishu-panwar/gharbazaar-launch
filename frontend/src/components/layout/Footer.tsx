@@ -30,10 +30,9 @@ export function Footer() {
           {/* Company Info */}
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-3 mb-6">
-              <img 
-                src="/images/gharbazaar logo.jpeg" 
-                alt="GharBazaar Logo" 
-                className="h-12 w-12 object-contain rounded-lg"
+              <div className="h-12 w-12 bg-gradient-to-br from-teal-500 to-emerald-600 rounded-lg flex items-center justify-center shadow-lg">
+                <Building2 className="h-7 w-7 text-white" />
+              </div>
               />
               <h3 className="text-2xl font-bold bg-gradient-to-r from-teal-400 via-emerald-400 to-blue-400 bg-clip-text text-transparent">
                 GharBazaar

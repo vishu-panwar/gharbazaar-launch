@@ -113,10 +113,10 @@ export default function Loader({
           <div className="relative w-24 h-24 lg:w-32 lg:h-32 bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/50 flex items-center justify-center overflow-hidden">
             {/* Logo Image */}
             <div className="relative w-16 h-16 lg:w-20 lg:h-20">
-              <Image
-                src="/images/gharbazaar logo.jpeg"
-                alt="GharBazaar"
-                fill
+              <div className="w-full h-full bg-gradient-to-br from-teal-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-2xl">
+                <Building2 className="w-8 h-8 lg:w-10 lg:h-10 text-white" />
+              </div>
+            </div>
                 className="object-contain rounded-xl"
                 priority
               />

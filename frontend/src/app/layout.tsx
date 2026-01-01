@@ -15,11 +15,11 @@ export const metadata: Metadata = {
   keywords: 'real estate, property, India, buy, sell, rent, plots, homes',
   icons: {
     icon: [
-      { url: '/favicon.ico' },
-      { url: '/images/gharbazaar logo.jpeg', type: 'image/jpeg' }
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: '32x32' }
     ],
-    shortcut: '/favicon.ico',
-    apple: '/images/gharbazaar logo.jpeg',
+    shortcut: '/favicon.svg',
+    apple: '/favicon.svg',
   },
 }
 

@@ -198,10 +198,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           {/* Logo */}
           <div className="flex items-center justify-between px-6 py-5 border-b border-gray-200 dark:border-gray-800">
             <Link href="/" className="flex items-center space-x-2 sm:space-x-3">
-              <img
-                src="/images/gharbazaar logo.jpeg"
-                alt="GharBazaar Logo"
-                className="h-8 sm:h-10 w-8 sm:w-10 object-contain rounded-lg"
+              <div className="h-8 sm:h-10 w-8 sm:w-10 bg-gradient-to-br from-teal-500 to-emerald-600 rounded-lg flex items-center justify-center shadow-lg">
+                <Building2 className="h-4 sm:h-5 w-4 sm:w-5 text-white" />
+              </div>
                 onError={(e) => {
                   // Fallback if logo doesn't exist
                   e.currentTarget.style.display = 'none'

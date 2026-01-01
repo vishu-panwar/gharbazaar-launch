@@ -26,6 +26,7 @@ import {
 import { useState, useEffect, useRef } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { useLoader } from '@/components/GlobalLoader'
+import { Logo } from '@/components/ui/Logo'
 
 export function Header() {
   const { theme, setTheme } = useTheme()
@@ -119,12 +120,8 @@ export function Header() {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link href="/" className="flex items-center space-x-3 group">
-              <div className="relative">
-                <img
-                  src="/images/gharbazaar logo.jpeg"
-                  alt="GharBazaar Logo"
-                  className="h-10 w-10 object-contain rounded-lg transition-transform duration-300 group-hover:scale-105"
-                />
+              <Logo size="md" showText={true} className="transition-transform duration-300 group-hover:scale-105" />
+            </Link>
               </div>
               <div>
                 <h1 className="text-2xl font-bold bg-gradient-to-r from-teal-600 via-emerald-600 to-blue-600 bg-clip-text text-transparent">

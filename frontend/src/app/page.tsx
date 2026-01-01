@@ -152,10 +152,10 @@ export default function HomePage() {
                 <div className="bg-gradient-to-br from-teal-50 to-emerald-50 dark:from-teal-900/20 dark:to-emerald-900/20 rounded-3xl p-8 border border-teal-200 dark:border-teal-800">
                   <div className="aspect-square bg-gradient-to-br from-teal-100 to-emerald-100 dark:from-teal-900/30 dark:to-emerald-900/30 rounded-2xl flex items-center justify-center">
                     <div className="w-full h-full flex items-center justify-center">
-                      <Image
-                        src="/images/gharbazaar logo.jpeg"
-                        alt="GharBazaar Logo"
-                        width={300}
+                      <div className="w-20 h-20 bg-gradient-to-br from-teal-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-2xl">
+                        <Building2 className="w-12 h-12 text-white" />
+                      </div>
+                    </div>
                         height={300}
                         className="object-contain rounded-xl"
                       />
