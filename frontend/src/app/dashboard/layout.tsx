@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { useTheme } from 'next-themes'
 import {
@@ -27,7 +28,8 @@ import {
   CreditCard,
   Sun,
   Moon,
-  Mail
+  Mail,
+  Building2
 } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
 import { AuthUtils } from '@/lib/firebase'
@@ -198,14 +200,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           {/* Logo */}
           <div className="flex items-center justify-between px-6 py-5 border-b border-gray-200 dark:border-gray-800">
             <Link href="/" className="flex items-center space-x-2 sm:space-x-3">
-              <div className="h-8 sm:h-10 w-8 sm:w-10 bg-gradient-to-br from-teal-500 to-emerald-600 rounded-lg flex items-center justify-center shadow-lg">
-                <Building2 className="h-4 sm:h-5 w-4 sm:w-5 text-white" />
+              <div className="h-8 sm:h-10 w-8 sm:w-10 relative overflow-hidden rounded-lg shadow-lg">
+                <Image
+                  src="/logo.jpeg"
+                  alt="GharBazaar Logo"
+                  fill
+                  className="object-cover"
+                />
               </div>
-                onError={(e) => {
-                  // Fallback if logo doesn't exist
-                  e.currentTarget.style.display = 'none'
-                }}
-              />
               <div>
                 <h1 className="text-base sm:text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
                   GharBazaar

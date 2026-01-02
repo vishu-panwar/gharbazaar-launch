@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Building2 } from 'lucide-react'
+import Image from 'next/image'
 
 interface LoaderProps {
   isVisible: boolean
@@ -46,8 +46,13 @@ export default function Loader({
       <div className="text-center">
         {/* Logo */}
         <div className="relative mb-8">
-          <div className="w-20 h-20 bg-gradient-to-br from-teal-500 to-emerald-600 rounded-3xl flex items-center justify-center shadow-2xl mx-auto">
-            <Building2 className="w-10 h-10 text-white" />
+          <div className="w-20 h-20 relative overflow-hidden rounded-3xl shadow-2xl mx-auto">
+            <Image
+              src="/logo.jpeg"
+              alt="GharBazaar Logo"
+              fill
+              className="object-cover"
+            />
           </div>
         </div>
 

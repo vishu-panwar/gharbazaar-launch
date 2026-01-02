@@ -3,80 +3,74 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Eye, EyeOff, Mail, Lock, MapPin, Shield, CheckCircle, Users } from 'lucide-react'
+import { Eye, EyeOff, Mail, Lock, MapPin, Shield, CheckCircle, Users, Loader2, ArrowRight } from 'lucide-react'
 import toast from 'react-hot-toast'
+import { useAuth } from '@/contexts/AuthContext'
+import { useLoader } from '@/components/GlobalLoader'
 
 export default function GroundPartnerLoginPage() {
   const router = useRouter()
+  const { login, loginWithGoogle } = useAuth()
+  const { showLoader } = useLoader()
+  
   const [showPassword, setShowPassword] = useState(false)
   const [formData, setFormData] = useState({
     email: '',
-    password: ''
+    password: '',
+    rememberMe: false
   })
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }))
+  }
+
+  // Handle Email Login
+  const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    if (!formData.email || !formData.password) {
+      toast.error('Please fill in all fields')
+      return
+    }
+
     setIsLoading(true)
+    showLoader('Signing you in to Ground Partner Portal...', 2000)
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500))
-      
-      // Mock successful login
-      const userData = {
-        id: '1',
-        name: 'Rajesh Kumar',
-        email: formData.email || 'rajesh@groundpartner.com',
-        phone: '+91 98765 43210',
-        role: 'ground-partner',
-        city: 'Mumbai',
-        zone: 'Western Suburbs',
-        verificationStatus: 'verified',
-        partnerType: 'Ground Partner'
-      }
-      
-      localStorage.setItem('token', 'mock-ground-partner-token')
-      localStorage.setItem('user', JSON.stringify(userData))
-      
+      await login(formData.email, formData.password, true) // Skip AuthContext redirect
       toast.success('Welcome to Ground Partner Portal!')
       router.push('/ground-partner')
-    } catch (error) {
-      toast.error('Login failed. Please try again.')
+    } catch (error: any) {
+      console.error('Login error:', error)
+      toast.error(error.message || 'Login failed. Please try again.')
     } finally {
       setIsLoading(false)
     }
   }
 
+  // Handle Google Login
   const handleGoogleLogin = async () => {
     setIsLoading(true)
+    showLoader('Connecting with Google...', 2000)
+
     try {
-      // Simulate Google OAuth
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      
-      const userData = {
-        id: '1',
-        name: 'Rajesh Kumar',
-        email: 'rajesh@gmail.com',
-        phone: '+91 98765 43210',
-        role: 'ground-partner',
-        city: 'Mumbai',
-        zone: 'Western Suburbs',
-        verificationStatus: 'verified',
-        partnerType: 'Ground Partner'
-      }
-      
-      localStorage.setItem('token', 'mock-ground-partner-token')
-      localStorage.setItem('user', JSON.stringify(userData))
-      
+      await loginWithGoogle(true) // Skip AuthContext redirect
       toast.success('Welcome to Ground Partner Portal!')
       router.push('/ground-partner')
-    } catch (error) {
-      toast.error('Google login failed. Please try again.')
+    } catch (error: any) {
+      console.error('Google login error:', error)
+      toast.error(error.message || 'Google login failed. Please try again.')
     } finally {
       setIsLoading(false)
     }
   }
+
+
 
   const features = [
     {
@@ -210,7 +204,7 @@ export default function GroundPartnerLoginPage() {
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleEmailLogin} className="space-y-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Email Address

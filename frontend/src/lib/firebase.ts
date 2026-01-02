@@ -63,45 +63,108 @@ export const AuthUtils = {
     return auth.currentUser
   },
 
-  // Check if user is logged in (instant)
+  // Check if user is logged in (instant) - improved for refresh
   isLoggedIn: () => {
     const user = AuthUtils.getCurrentUser()
     const cachedUser = typeof window !== 'undefined' ? localStorage.getItem('user') : null
-    return !!(user || cachedUser)
+    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+    return !!(user || (cachedUser && token))
   },
 
-  // Get cached user data (instant)
+  // Get cached user data (instant) - improved error handling and refresh detection
   getCachedUser: () => {
     if (typeof window === 'undefined') return null
     try {
       const cached = localStorage.getItem('user')
-      return cached ? JSON.parse(cached) : null
-    } catch {
+      const token = localStorage.getItem('token')
+      const lastLogin = localStorage.getItem('lastLogin')
+      
+      // Only return cached user if we have all required data and it's recent
+      if (cached && token && lastLogin) {
+        const parsed = JSON.parse(cached)
+        const loginTime = parseInt(lastLogin)
+        const now = Date.now()
+        
+        // Cache is valid for 24 hours
+        if (parsed && (parsed.uid || parsed.email) && (now - loginTime < 24 * 60 * 60 * 1000)) {
+          return parsed
+        }
+      }
+      
+      // Clear stale cache
+      if (cached || token) {
+        AuthUtils.clearCache()
+      }
+      
+      return null
+    } catch (error) {
+      console.warn('Error reading cached user, clearing cache:', error)
+      AuthUtils.clearCache()
       return null
     }
   },
 
-  // Cache user data for instant access
+  // Cache user data for instant access - improved with timestamp
   cacheUser: (userData: any) => {
     if (typeof window === 'undefined') return
-    localStorage.setItem('user', JSON.stringify(userData))
-    localStorage.setItem('userRole', userData.role || 'buyer')
-    localStorage.setItem('lastLogin', Date.now().toString())
+    try {
+      localStorage.setItem('user', JSON.stringify(userData))
+      localStorage.setItem('userRole', userData.role || 'buyer')
+      localStorage.setItem('lastLogin', Date.now().toString())
+      
+      // Set a token for refresh detection
+      if (!localStorage.getItem('token')) {
+        localStorage.setItem('token', `user-${userData.uid || Date.now()}`)
+      }
+    } catch (error) {
+      console.warn('Error caching user data:', error)
+    }
   },
 
   // Clear all cached data
   clearCache: () => {
     if (typeof window === 'undefined') return
-    localStorage.removeItem('user')
-    localStorage.removeItem('userRole')
-    localStorage.removeItem('userMode')
-    localStorage.removeItem('lastLogin')
+    try {
+      localStorage.removeItem('user')
+      localStorage.removeItem('token')
+      localStorage.removeItem('userRole')
+      localStorage.removeItem('userMode')
+      localStorage.removeItem('lastLogin')
+    } catch (error) {
+      console.warn('Error clearing cache:', error)
+    }
   },
 
   // Get user role (instant)
   getUserRole: () => {
     if (typeof window === 'undefined') return 'buyer'
     return localStorage.getItem('userRole') || 'buyer'
+  },
+
+  // Check if this is a page refresh - improved detection
+  isPageRefresh: () => {
+    if (typeof window === 'undefined') return false
+    
+    // Multiple ways to detect refresh
+    const perfNavigation = window.performance && window.performance.navigation
+    const perfEntry = window.performance && window.performance.getEntriesByType('navigation')[0] as any
+    
+    return (
+      (perfNavigation && perfNavigation.type === 1) ||
+      (perfEntry && perfEntry.type === 'reload') ||
+      (document.referrer === window.location.href)
+    )
+  },
+
+  // Check if we're on a public page that doesn't need auth
+  isPublicPage: (pathname?: string) => {
+    const path = pathname || (typeof window !== 'undefined' ? window.location.pathname : '/')
+    const publicPaths = ['/', '/about', '/contact', '/privacy', '/terms', '/testimonials', '/listings', '/pricing', '/founder']
+    return publicPaths.includes(path) || 
+           path.startsWith('/public') || 
+           path.startsWith('/listings/') ||
+           path.startsWith('/about') ||
+           path.startsWith('/contact')
   }
 }
 

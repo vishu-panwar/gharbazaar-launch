@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { 
   Mail, 
   Phone, 
@@ -30,10 +31,14 @@ export function Footer() {
           {/* Company Info */}
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-3 mb-6">
-              <div className="h-12 w-12 bg-gradient-to-br from-teal-500 to-emerald-600 rounded-lg flex items-center justify-center shadow-lg">
-                <Building2 className="h-7 w-7 text-white" />
+              <div className="h-12 w-12 relative overflow-hidden rounded-lg shadow-lg">
+                <Image
+                  src="/logo.jpeg"
+                  alt="GharBazaar Logo"
+                  fill
+                  className="object-cover"
+                />
               </div>
-              />
               <h3 className="text-2xl font-bold bg-gradient-to-r from-teal-400 via-emerald-400 to-blue-400 bg-clip-text text-transparent">
                 GharBazaar
               </h3>

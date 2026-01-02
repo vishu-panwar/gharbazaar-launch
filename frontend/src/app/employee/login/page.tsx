@@ -11,46 +11,73 @@ import {
   Shield,
   Briefcase,
   CheckCircle,
-  ArrowLeft
+  ArrowLeft,
+  Loader2,
+  ArrowRight
 } from 'lucide-react'
 import toast from 'react-hot-toast'
+import { useAuth } from '@/contexts/AuthContext'
+import { useLoader } from '@/components/GlobalLoader'
 
 export default function EmployeeLoginPage() {
   const router = useRouter()
+  const { login, loginWithGoogle } = useAuth()
+  const { showLoader } = useLoader()
+  
   const [formData, setFormData] = useState({
     email: '',
     password: '',
+    rememberMe: false,
     otp: ''
   })
   const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [show2FA, setShow2FA] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }))
+  }
+
+  // Handle Email Login
+  const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    if (!formData.email || !formData.password) {
+      toast.error('Please fill in all fields')
+      return
+    }
+
+    setLoading(true)
+    showLoader('Signing you in to Employee Portal...', 2000)
+
     try {
-      setLoading(true)
-
-      // Simulate API call
-      setTimeout(() => {
-        // Mock employee data
-        const employeeData = {
-          id: 1,
-          name: 'Employee User',
-          email: formData.email,
-          role: 'employee',
-          department: 'KYC Verification',
-          staffId: 'EMP001'
-        }
-
-        localStorage.setItem('token', 'employee-token-123')
-        localStorage.setItem('user', JSON.stringify(employeeData))
-
-        toast.success('Welcome back! Login successful!')
-        router.push('/employee')
-      }, 1500)
+      await login(formData.email, formData.password, true) // Skip AuthContext redirect
+      toast.success('Welcome to Employee Portal!')
+      router.push('/employee')
     } catch (error: any) {
-      toast.error('Login failed. Please check your credentials.')
+      console.error('Login error:', error)
+      toast.error(error.message || 'Login failed. Please try again.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // Handle Google Login
+  const handleGoogleLogin = async () => {
+    setLoading(true)
+    showLoader('Connecting with Google...', 2000)
+
+    try {
+      await loginWithGoogle(true) // Skip AuthContext redirect
+      toast.success('Welcome to Employee Portal!')
+      router.push('/employee')
+    } catch (error: any) {
+      console.error('Google login error:', error)
+      toast.error(error.message || 'Google login failed. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -94,7 +121,7 @@ export default function EmployeeLoginPage() {
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleEmailLogin} className="space-y-5">
             {/* Email / Staff ID */}
             <div>
               <label htmlFor="email" className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">

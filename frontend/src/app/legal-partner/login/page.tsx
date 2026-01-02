@@ -3,92 +3,84 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Eye, EyeOff, Mail, Lock, Scale, Shield, Gavel, FileCheck, Users, CheckCircle } from 'lucide-react'
+import { Eye, EyeOff, Mail, Lock, Scale, Shield, Gavel, FileCheck, Users, CheckCircle, Loader2, ArrowRight } from 'lucide-react'
 import toast from 'react-hot-toast'
+import { useAuth } from '@/contexts/AuthContext'
+import { useLoader } from '@/components/GlobalLoader'
 
 export default function LegalPartnerLoginPage() {
   const router = useRouter()
+  const { login, loginWithGoogle } = useAuth()
+  const { showLoader } = useLoader()
+  
   const [showPassword, setShowPassword] = useState(false)
   const [formData, setFormData] = useState({
     email: '',
-    password: ''
+    password: '',
+    rememberMe: false
   })
   const [isLoading, setIsLoading] = useState(false)
   const [enable2FA, setEnable2FA] = useState(false)
   const [otpCode, setOtpCode] = useState('')
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleSubmit = async () => {
     setIsLoading(true)
-
     try {
-      // Simulate API call
+      // Simulate 2FA verification
       await new Promise(resolve => setTimeout(resolve, 1500))
-      
-      // Mock 2FA requirement
-      if (!enable2FA) {
-        setEnable2FA(true)
-        toast.success('OTP sent to your registered email')
-        setIsLoading(false)
-        return
-      }
-
-      // Mock successful login
-      const userData = {
-        id: '1',
-        name: 'Rajesh Kumar',
-        email: formData.email || 'rajesh@legalpartner.com',
-        phone: '+91 98765 43210',
-        role: 'legal-partner',
-        barCouncilId: 'MH/2015/123456',
-        practiceAreas: ['Property Law', 'RERA Compliance', 'Registration'],
-        experience: '8 years',
-        verificationStatus: 'verified',
-        partnerType: 'Legal Partner',
-        city: 'Mumbai',
-        state: 'Maharashtra'
-      }
-      
-      localStorage.setItem('token', 'mock-legal-partner-token')
-      localStorage.setItem('user', JSON.stringify(userData))
-      
       toast.success('Welcome to Legal Partner Portal!')
       router.push('/legal-partner')
     } catch (error) {
-      toast.error('Login failed. Please try again.')
+      toast.error('Verification failed. Please try again.')
     } finally {
       setIsLoading(false)
     }
   }
 
-  const handleGoogleLogin = async () => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }))
+  }
+
+  // Handle Email Login
+  const handleEmailLogin = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    if (!formData.email || !formData.password) {
+      toast.error('Please fill in all fields')
+      return
+    }
+
     setIsLoading(true)
+    showLoader('Signing you in to Legal Partner Portal...', 2000)
+
     try {
-      // Simulate Google OAuth
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      
-      const userData = {
-        id: '1',
-        name: 'Priya Sharma',
-        email: 'priya@gmail.com',
-        phone: '+91 98765 43210',
-        role: 'legal-partner',
-        barCouncilId: 'DL/2018/789012',
-        practiceAreas: ['Property Law', 'Litigation', 'Documentation'],
-        experience: '6 years',
-        verificationStatus: 'verified',
-        partnerType: 'Legal Partner',
-        city: 'Delhi',
-        state: 'Delhi'
-      }
-      
-      localStorage.setItem('token', 'mock-legal-partner-token')
-      localStorage.setItem('user', JSON.stringify(userData))
-      
+      await login(formData.email, formData.password, true) // Skip AuthContext redirect
       toast.success('Welcome to Legal Partner Portal!')
       router.push('/legal-partner')
-    } catch (error) {
-      toast.error('Google login failed. Please try again.')
+    } catch (error: any) {
+      console.error('Login error:', error)
+      toast.error(error.message || 'Login failed. Please try again.')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  // Handle Google Login
+  const handleGoogleLogin = async () => {
+    setIsLoading(true)
+    showLoader('Connecting with Google...', 2000)
+
+    try {
+      await loginWithGoogle(true) // Skip AuthContext redirect
+      toast.success('Welcome to Legal Partner Portal!')
+      router.push('/legal-partner')
+    } catch (error: any) {
+      console.error('Google login error:', error)
+      toast.error(error.message || 'Google login failed. Please try again.')
     } finally {
       setIsLoading(false)
     }
@@ -230,7 +222,7 @@ export default function LegalPartnerLoginPage() {
                   </div>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleEmailLogin} className="space-y-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       Email Address

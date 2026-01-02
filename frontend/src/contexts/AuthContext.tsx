@@ -25,8 +25,8 @@ interface AuthContextType {
   loading: boolean
   authLoading: boolean
   signup: (email: string, password: string, name: string) => Promise<void>
-  login: (email: string, password: string) => Promise<void>
-  loginWithGoogle: () => Promise<User | void>
+  login: (email: string, password: string, skipRedirect?: boolean) => Promise<void>
+  loginWithGoogle: (skipRedirect?: boolean) => Promise<User | void>
   loginWithPhone: (phoneNumber: string) => Promise<ConfirmationResult>
   logout: () => Promise<void>
   resetPassword: (email: string) => Promise<void>
@@ -57,18 +57,40 @@ export const AuthProvider = ({
   const router = useRouter()
 
   useEffect(() => {
-    // PERFORMANCE OPTIMIZATION: Instant auth check
+    // INSTANT LOADING RESOLUTION: No loading screen for public pages
     const initAuth = () => {
       try {
-        // 1. Check cached user first (instant)
-        const cachedUser = AuthUtils.getCachedUser()
-        if (cachedUser) {
-          setUser(cachedUser)
+        // IMMEDIATE: For public pages, resolve instantly
+        const isPublicPage = typeof window !== 'undefined' && 
+          (window.location.pathname === '/' || 
+           window.location.pathname.startsWith('/about') ||
+           window.location.pathname.startsWith('/contact') ||
+           window.location.pathname.startsWith('/privacy') ||
+           window.location.pathname.startsWith('/terms') ||
+           window.location.pathname.startsWith('/listings') ||
+           window.location.pathname.startsWith('/pricing'))
+
+        // For public pages, resolve loading immediately - NO DELAY
+        if (isPublicPage) {
           setLoading(false)
           return
         }
 
-        // 2. Check Firebase current user (fast)
+        // VERY FAST RESOLUTION: Maximum 500ms loading for auth pages
+        const maxLoadingTime = setTimeout(() => {
+          setLoading(false)
+        }, 500)
+
+        // 1. INSTANT: Check cached user first
+        const cachedUser = AuthUtils.getCachedUser()
+        if (cachedUser) {
+          setUser(cachedUser)
+          setLoading(false)
+          clearTimeout(maxLoadingTime)
+          return
+        }
+
+        // 2. FAST: Check Firebase current user
         const currentUser = AuthUtils.getCurrentUser()
         if (currentUser) {
           const userData = {
@@ -80,12 +102,15 @@ export const AuthProvider = ({
           setUser(userData as any)
           AuthUtils.cacheUser(userData)
           setLoading(false)
+          clearTimeout(maxLoadingTime)
           return
         }
 
-        // 3. Only then listen to auth state (background)
+        // 3. BACKGROUND: Firebase auth state listener (non-blocking)
         if (auth) {
           const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+            clearTimeout(maxLoadingTime)
+            
             if (firebaseUser) {
               const userData = {
                 uid: firebaseUser.uid,
@@ -97,7 +122,7 @@ export const AuthProvider = ({
               AuthUtils.cacheUser(userData)
               
               // Background role fetch (non-blocking)
-              fetchUserRole(firebaseUser.uid)
+              setTimeout(() => fetchUserRole(firebaseUser.uid), 0)
             } else {
               setUser(null)
               AuthUtils.clearCache()
@@ -105,23 +130,25 @@ export const AuthProvider = ({
             setLoading(false)
           })
           
-          // Cleanup subscription
-          return unsubscribe
+          // Cleanup
+          return () => {
+            clearTimeout(maxLoadingTime)
+            unsubscribe()
+          }
         } else {
+          // No Firebase auth available
+          clearTimeout(maxLoadingTime)
           setLoading(false)
         }
+        
       } catch (error) {
         console.error('Auth initialization error:', error)
         setLoading(false)
       }
     }
 
-    const unsubscribe = initAuth()
-    return () => {
-      if (typeof unsubscribe === 'function') {
-        unsubscribe()
-      }
-    }
+    const cleanup = initAuth()
+    return cleanup
   }, [])
 
   // Background role fetching (non-blocking)
@@ -172,7 +199,7 @@ export const AuthProvider = ({
   }
 
   // OPTIMIZED LOGIN: Immediate redirect, background processing
-  const login = async (email: string, password: string) => {
+  const login = async (email: string, password: string, skipRedirect = false) => {
     if (!auth) {
       throw new Error('Authentication not configured. Please set up Firebase.')
     }
@@ -201,11 +228,15 @@ export const AuthProvider = ({
       
       toast.success('Welcome back!')
       
-      // Show loader for smooth transition
-      setTimeout(() => {
-        router.push('/dashboard')
+      // Only redirect if not skipped (for partner portals)
+      if (!skipRedirect) {
+        setTimeout(() => {
+          router.push('/dashboard')
+          setAuthLoading(false)
+        }, 1500)
+      } else {
         setAuthLoading(false)
-      }, 1500)
+      }
       
     } catch (error: any) {
       setAuthLoading(false)
@@ -261,7 +292,7 @@ export const AuthProvider = ({
   }
 
   // Login with Google
-  const loginWithGoogle = async () => {
+  const loginWithGoogle = async (skipRedirect = false) => {
     if (!auth || !googleProvider) {
       throw new Error('Authentication not configured. Please set up Firebase.')
     }
@@ -288,11 +319,15 @@ export const AuthProvider = ({
       
       toast.success('Signed in with Google!')
       
-      // Show loader for smooth transition
-      setTimeout(() => {
-        router.push('/dashboard')
+      // Only redirect if not skipped (for partner portals)
+      if (!skipRedirect) {
+        setTimeout(() => {
+          router.push('/dashboard')
+          setAuthLoading(false)
+        }, 1500)
+      } else {
         setAuthLoading(false)
-      }, 1500)
+      }
       
       return result.user
     } catch (error: any) {
@@ -449,7 +484,34 @@ export const AuthProvider = ({
         duration={1500}
       />
       
-      {loading ? (loadingComponent || null) : children}
+      {loading ? (
+        loadingComponent || (
+          <div className="min-h-screen bg-white dark:bg-gray-950 flex items-center justify-center">
+            <div className="text-center">
+              {/* Minimal Logo */}
+              <div className="relative mb-6">
+                <div className="w-16 h-16 relative overflow-hidden rounded-2xl shadow-lg mx-auto bg-white">
+                  <img
+                    src="/logo.jpeg"
+                    alt="GharBazaar"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+
+              {/* Simple Loading Spinner */}
+              <div className="mb-4">
+                <div className="w-8 h-8 border-2 border-gray-200 dark:border-gray-700 border-t-teal-500 rounded-full animate-spin mx-auto"></div>
+              </div>
+
+              {/* Minimal Text */}
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                Loading...
+              </p>
+            </div>
+          </div>
+        )
+      ) : children}
     </AuthContext.Provider>
   )
 }

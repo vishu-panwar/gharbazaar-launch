@@ -9,7 +9,6 @@ import { LoaderProvider } from '@/components/GlobalLoader'
 import { FavoritesProvider } from '@/contexts/FavoritesContext'
 import { PaymentProvider } from '@/contexts/PaymentContext'
 import { SellerSubscriptionProvider } from '@/contexts/SellerSubscriptionContext'
-import LoadingScreen from './LoadingScreen'
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(() => new QueryClient({
@@ -25,7 +24,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
         <LoaderProvider>
-          <AuthProvider loadingComponent={<LoadingScreen />}>
+          <AuthProvider>
             <FavoritesProvider>
               <PaymentProvider>
                 <SellerSubscriptionProvider>

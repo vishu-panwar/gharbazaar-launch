@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import {
   Mail,
@@ -118,8 +119,13 @@ export default function SignupPage() {
           <div className="space-y-4">
             {/* Logo */}
             <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg">
-                <Building2 className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 relative overflow-hidden rounded-xl shadow-lg">
+                <Image
+                  src="/logo.jpeg"
+                  alt="GharBazaar Logo"
+                  fill
+                  className="object-cover"
+                />
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-gray-900 dark:text-white">GharBazaar</h1>
@@ -218,8 +224,13 @@ export default function SignupPage() {
             {/* Mobile Logo */}
             <div className="lg:hidden text-center mb-6">
               <div className="inline-flex items-center space-x-3 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg">
-                  <Building2 className="w-5 h-5 text-white" />
+                <div className="w-10 h-10 relative overflow-hidden rounded-xl shadow-lg">
+                  <Image
+                    src="/logo.jpeg"
+                    alt="GharBazaar Logo"
+                    fill
+                    className="object-cover"
+                  />
                 </div>
                 <h1 className="text-xl font-bold text-gray-900 dark:text-white">GharBazaar</h1>
               </div>

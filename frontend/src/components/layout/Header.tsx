@@ -31,7 +31,6 @@ import { Logo } from '@/components/ui/Logo'
 export function Header() {
   const { theme, setTheme } = useTheme()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isPortalsOpen, setIsPortalsOpen] = useState(false)
   const [isPartnerPortalOpen, setIsPartnerPortalOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [user, setUser] = useState<any>(null)
@@ -39,7 +38,6 @@ export function Header() {
   const router = useRouter()
   const pathname = usePathname()
   const { showLoader } = useLoader()
-  const portalsRef = useRef<HTMLDivElement>(null)
   const partnerPortalRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -65,9 +63,6 @@ export function Header() {
     }
 
     const handleClickOutside = (event: MouseEvent) => {
-      if (portalsRef.current && !portalsRef.current.contains(event.target as Node)) {
-        setIsPortalsOpen(false)
-      }
       if (partnerPortalRef.current && !partnerPortalRef.current.contains(event.target as Node)) {
         setIsPartnerPortalOpen(false)
       }
@@ -113,8 +108,8 @@ export function Header() {
   return (
     <>
       <header className={`sticky top-0 z-50 transition-all duration-300 ${isScrolled
-          ? 'bg-white/95 backdrop-blur-xl shadow-lg border-b border-gray-200'
-          : 'bg-white/80 backdrop-blur-md border-b border-gray-100'
+          ? 'bg-white/95 backdrop-blur-xl shadow-xl border-b border-gray-200/50'
+          : 'bg-white/90 backdrop-blur-lg border-b border-gray-100/50'
         }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
@@ -145,38 +140,15 @@ export function Header() {
                 About
               </Link>
 
-              {/* Portals Dropdown */}
-              <div className="relative" ref={portalsRef}>
-                <button
-                  onClick={() => setIsPortalsOpen(!isPortalsOpen)}
-                  className="flex items-center space-x-1 px-4 py-2 rounded-lg font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 transition-all"
-                >
-                  <span>Portals</span>
-                  <ChevronDown size={16} className={`transition-transform ${isPortalsOpen ? 'rotate-180' : ''}`} />
-                </button>
-
-                {isPortalsOpen && (
-                  <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-2xl border border-gray-200 py-2 z-50">
-                    <Link
-                      href="/dashboard"
-                      onClick={() => {
-                        setIsPortalsOpen(false)
-                        showLoader('Loading client dashboard...', 1500)
-                      }}
-                      className="flex items-center space-x-3 px-4 py-3 hover:bg-gray-50 transition-all"
-                    >
-                      <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center">
-                        <Users className="text-white" size={20} />
-                      </div>
-                      <div>
-                        <p className="font-semibold text-gray-900">Client Portal</p>
-                        <p className="text-xs text-gray-600">Browse & manage properties</p>
-                      </div>
-                    </Link>
-
-                  </div>
-                )}
-              </div>
+              <Link
+                href="/listings"
+                className={`px-4 py-2 rounded-lg font-medium transition-all ${isActive('/listings')
+                    ? 'text-teal-600 bg-teal-50'
+                    : 'text-gray-700 hover:text-teal-600 hover:bg-gray-50'
+                  }`}
+              >
+                Properties
+              </Link>
 
               {/* Partner Portal Dropdown */}
               <div className="relative" ref={partnerPortalRef}>
@@ -184,12 +156,17 @@ export function Header() {
                   onClick={() => setIsPartnerPortalOpen(!isPartnerPortalOpen)}
                   className="flex items-center space-x-1 px-4 py-2 rounded-lg font-medium text-gray-700 hover:text-teal-600 hover:bg-gray-50 transition-all"
                 >
-                  <span>Partner Portal</span>
+                  <span>Partners</span>
                   <ChevronDown size={16} className={`transition-transform ${isPartnerPortalOpen ? 'rotate-180' : ''}`} />
                 </button>
 
                 {isPartnerPortalOpen && (
-                  <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-2xl border border-gray-200 py-2 z-50">
+                  <div className="absolute top-full left-0 mt-2 w-72 bg-white rounded-xl shadow-2xl border border-gray-200 py-3 z-50">
+                    <div className="px-4 py-2 border-b border-gray-100">
+                      <h3 className="text-sm font-semibold text-gray-900">Join Our Partner Network</h3>
+                      <p className="text-xs text-gray-600 mt-1">Grow your business with GharBazaar</p>
+                    </div>
+                    
                     <Link
                       href="/ground-partner"
                       onClick={() => {
@@ -203,7 +180,7 @@ export function Header() {
                       </div>
                       <div>
                         <p className="font-semibold text-gray-900">Ground Partners</p>
-                        <p className="text-xs text-gray-600">Field operations & client management</p>
+                        <p className="text-xs text-gray-600">Field operations & client visits</p>
                       </div>
                     </Link>
 
@@ -245,16 +222,6 @@ export function Header() {
               </div>
 
               <Link
-                href="/founder"
-                className={`px-4 py-2 rounded-lg font-medium transition-all ${isActive('/founder')
-                    ? 'text-teal-600 bg-teal-50'
-                    : 'text-gray-700 hover:text-teal-600 hover:bg-gray-50'
-                  }`}
-              >
-                Founder
-              </Link>
-
-              <Link
                 href="/pricing"
                 className={`px-4 py-2 rounded-lg font-medium transition-all ${isActive('/pricing')
                     ? 'text-teal-600 bg-teal-50'
@@ -280,7 +247,7 @@ export function Header() {
               {/* Theme Toggle */}
               <button
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="p-2.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 transition-all"
+                className="p-2.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 transition-all duration-200 hover:scale-105"
               >
                 {mounted ? (theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />) : <div className="w-5 h-5" />}
               </button>
@@ -290,7 +257,7 @@ export function Header() {
                   {/* Dashboard Link */}
                   <Link
                     href={getDashboardLink()}
-                    className="hidden lg:flex items-center space-x-2 px-4 py-2.5 rounded-lg text-gray-700 hover:bg-gray-100 transition-all font-medium"
+                    className="hidden lg:flex items-center space-x-2 px-4 py-2.5 rounded-xl text-gray-700 hover:bg-gray-100 transition-all font-medium hover:scale-105"
                   >
                     <LayoutDashboard size={18} />
                     <span>Dashboard</span>
@@ -299,7 +266,7 @@ export function Header() {
                   {/* User Menu */}
                   <div className="hidden lg:flex items-center space-x-3 pl-3 border-l border-gray-200">
                     <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-gradient-to-br from-teal-500 via-emerald-600 to-blue-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg">
+                      <div className="w-10 h-10 bg-gradient-to-br from-teal-500 via-emerald-600 to-blue-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg ring-2 ring-white">
                         {user.name?.charAt(0).toUpperCase()}
                       </div>
                       <div className="hidden xl:block">
@@ -313,7 +280,7 @@ export function Header() {
                     </div>
                     <button
                       onClick={handleLogout}
-                      className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-all"
+                      className="p-2 text-red-600 hover:bg-red-50 rounded-xl transition-all hover:scale-105"
                       title="Logout"
                     >
                       <LogOut size={18} />
@@ -325,7 +292,7 @@ export function Header() {
                   {/* Login Button */}
                   <button
                     onClick={() => navigateWithLoader('/login', 'Loading login page...')}
-                    className="hidden lg:flex items-center space-x-2 px-5 py-2.5 bg-white hover:bg-gray-50 text-teal-700 border border-teal-200 rounded-lg font-semibold transition-all shadow-sm hover:shadow-md"
+                    className="hidden lg:flex items-center space-x-2 px-5 py-2.5 bg-white hover:bg-gray-50 text-teal-700 border border-teal-200 rounded-xl font-semibold transition-all shadow-sm hover:shadow-lg hover:scale-105"
                   >
                     <User size={18} />
                     <span>Login</span>
@@ -334,7 +301,7 @@ export function Header() {
                   {/* Register Button */}
                   <button
                     onClick={() => navigateWithLoader('/signup', 'Loading signup page...')}
-                    className="hidden lg:flex items-center space-x-2 px-5 py-2.5 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white rounded-lg font-semibold transition-all shadow-lg hover:shadow-xl"
+                    className="hidden lg:flex items-center space-x-2 px-5 py-2.5 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white rounded-xl font-semibold transition-all shadow-lg hover:shadow-xl hover:scale-105"
                   >
                     <UserPlus size={18} />
                     <span>Register</span>
@@ -345,7 +312,7 @@ export function Header() {
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="lg:hidden p-2 rounded-lg hover:bg-gray-100 text-gray-600"
+                className="lg:hidden p-2.5 rounded-xl hover:bg-gray-100 text-gray-600 transition-all hover:scale-105"
               >
                 {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
@@ -371,49 +338,32 @@ export function Header() {
               >
                 About
               </Link>
-
-              {/* Mobile Portals Section */}
-              <div className="px-4 py-2">
-                <p className="text-sm font-semibold text-gray-900 mb-2">Portals</p>
-                <div className="space-y-1 ml-2">
-                  <Link
-                    href="/dashboard"
-                    onClick={() => {
-                      setIsMenuOpen(false)
-                      showLoader('Loading client dashboard...', 1500)
-                    }}
-                    className="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-50 transition-all"
-                  >
-                    <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center">
-                      <Users className="text-white" size={16} />
-                    </div>
-                    <div>
-                      <p className="font-medium text-gray-900 text-sm">Client Portal</p>
-                      <p className="text-xs text-gray-600">Browse & manage properties</p>
-                    </div>
-                  </Link>
-
-                </div>
-              </div>
+              <Link
+                href="/listings"
+                className="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Properties
+              </Link>
 
               {/* Mobile Partner Portal Section */}
               <div className="px-4 py-2">
-                <p className="text-sm font-semibold text-gray-900 mb-2">Partner Portal</p>
-                <div className="space-y-1 ml-2">
+                <p className="text-sm font-semibold text-gray-900 mb-3">Partner Network</p>
+                <div className="space-y-2 ml-2">
                   <Link
                     href="/ground-partner"
                     onClick={() => {
                       setIsMenuOpen(false)
                       showLoader('Loading ground partner portal...', 1500)
                     }}
-                    className="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-50 transition-all"
+                    className="flex items-center space-x-3 px-3 py-3 rounded-lg hover:bg-gray-50 transition-all border border-gray-100"
                   >
                     <div className="w-8 h-8 bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-lg flex items-center justify-center">
                       <Users className="text-white" size={16} />
                     </div>
                     <div>
                       <p className="font-medium text-gray-900 text-sm">Ground Partners</p>
-                      <p className="text-xs text-gray-600">Field operations & client management</p>
+                      <p className="text-xs text-gray-600">Field operations & client visits</p>
                     </div>
                   </Link>
 
@@ -423,7 +373,7 @@ export function Header() {
                       setIsMenuOpen(false)
                       showLoader('Loading legal partner portal...', 1500)
                     }}
-                    className="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-50 transition-all"
+                    className="flex items-center space-x-3 px-3 py-3 rounded-lg hover:bg-gray-50 transition-all border border-gray-100"
                   >
                     <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center">
                       <Scale className="text-white" size={16} />
@@ -440,7 +390,7 @@ export function Header() {
                       setIsMenuOpen(false)
                       showLoader('Loading partner portal...', 1500)
                     }}
-                    className="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-50 transition-all"
+                    className="flex items-center space-x-3 px-3 py-3 rounded-lg hover:bg-gray-50 transition-all border border-gray-100"
                   >
                     <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-purple-700 rounded-lg flex items-center justify-center">
                       <Megaphone className="text-white" size={16} />
@@ -453,13 +403,6 @@ export function Header() {
                 </div>
               </div>
 
-              <Link
-                href="/founder"
-                className="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 font-medium"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Founder
-              </Link>
               <Link
                 href="/pricing"
                 className="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 font-medium"
@@ -520,7 +463,7 @@ export function Header() {
                       navigateWithLoader('/login', 'Loading login page...')
                       setIsMenuOpen(false)
                     }}
-                    className="flex items-center justify-center space-x-2 px-4 py-3 rounded-lg bg-white text-teal-700 border border-teal-200 font-semibold"
+                    className="flex items-center justify-center space-x-2 w-full px-4 py-3 rounded-lg bg-white text-teal-700 border border-teal-200 font-semibold"
                   >
                     <User size={18} />
                     <span>Login</span>
@@ -530,7 +473,7 @@ export function Header() {
                       navigateWithLoader('/signup', 'Loading signup page...')
                       setIsMenuOpen(false)
                     }}
-                    className="flex items-center justify-center space-x-2 px-4 py-3 rounded-lg bg-gradient-to-r from-teal-600 to-emerald-600 text-white font-semibold"
+                    className="flex items-center justify-center space-x-2 w-full px-4 py-3 rounded-lg bg-gradient-to-r from-teal-600 to-emerald-600 text-white font-semibold"
                   >
                     <UserPlus size={18} />
                     <span>Register</span>
