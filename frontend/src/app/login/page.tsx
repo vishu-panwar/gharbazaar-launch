@@ -95,12 +95,20 @@ export default function LoginPage() {
           <div className="space-y-4">
             {/* Logo */}
             <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 relative overflow-hidden rounded-xl shadow-lg">
+              <div className="w-12 h-12 relative overflow-hidden rounded-xl shadow-lg bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center">
                 <img
-                  src={`/logo.jpeg?v=${Date.now()}`}
+                  src="/logo.jpeg"
                   alt="GharBazaar Logo"
                   className="w-full h-full object-cover"
                   loading="eager"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                    const parent = target.parentElement;
+                    if (parent) {
+                      parent.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>';
+                    }
+                  }}
                 />
               </div>
               <div>
@@ -183,12 +191,20 @@ export default function LoginPage() {
             {/* Mobile Logo */}
             <div className="lg:hidden text-center mb-6">
               <div className="inline-flex items-center space-x-3 mb-4">
-                <div className="w-10 h-10 relative overflow-hidden rounded-xl shadow-lg">
+                <div className="w-10 h-10 relative overflow-hidden rounded-xl shadow-lg bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center">
                   <img
-                    src={`/logo.jpeg?v=${Date.now()}`}
+                    src="/logo.jpeg"
                     alt="GharBazaar Logo"
                     className="w-full h-full object-cover"
                     loading="eager"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                      const parent = target.parentElement;
+                      if (parent) {
+                        parent.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>';
+                      }
+                    }}
                   />
                 </div>
                 <h1 className="text-xl font-bold text-gray-900 dark:text-white">GharBazaar</h1>

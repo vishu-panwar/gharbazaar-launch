@@ -25,15 +25,12 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: '32x32' },
-      { url: '/logo.jpeg', sizes: '192x192', type: 'image/jpeg' },
-      { url: '/logo.jpeg', sizes: '512x512', type: 'image/jpeg' }
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/logo.jpeg', type: 'image/jpeg' }
     ],
     shortcut: '/favicon.ico',
     apple: [
-      { url: '/logo.jpeg', sizes: '180x180', type: 'image/jpeg' },
-      { url: '/logo.jpeg', sizes: '152x152', type: 'image/jpeg' },
-      { url: '/logo.jpeg', sizes: '144x144', type: 'image/jpeg' }
+      { url: '/logo.jpeg', type: 'image/jpeg' }
     ],
   },
   manifest: '/manifest.json',
@@ -80,11 +77,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="32x32" />
-        <link rel="icon" href="/logo.jpeg" type="image/jpeg" sizes="192x192" />
-        <link rel="apple-touch-icon" href="/logo.jpeg" sizes="180x180" />
-        <link rel="apple-touch-icon" href="/logo.jpeg" sizes="152x152" />
-        <link rel="apple-touch-icon" href="/logo.jpeg" sizes="144x144" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/logo.jpeg" type="image/jpeg" />
+        <link rel="apple-touch-icon" href="/logo.jpeg" />
         <meta name="theme-color" content="#0d9488" />
         <meta name="msapplication-TileColor" content="#0d9488" />
         <meta name="msapplication-TileImage" content="/logo.jpeg" />
