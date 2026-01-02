@@ -25,13 +25,15 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: '32x32', type: 'image/x-icon' },
-      { url: '/favicon.svg', type: 'image/svg+xml' },
-      { url: '/logo.jpeg', sizes: '192x192', type: 'image/jpeg' }
+      { url: '/favicon.ico', sizes: '32x32' },
+      { url: '/logo.jpeg', sizes: '192x192', type: 'image/jpeg' },
+      { url: '/logo.jpeg', sizes: '512x512', type: 'image/jpeg' }
     ],
     shortcut: '/favicon.ico',
     apple: [
-      { url: '/logo.jpeg', sizes: '180x180', type: 'image/jpeg' }
+      { url: '/logo.jpeg', sizes: '180x180', type: 'image/jpeg' },
+      { url: '/logo.jpeg', sizes: '152x152', type: 'image/jpeg' },
+      { url: '/logo.jpeg', sizes: '144x144', type: 'image/jpeg' }
     ],
   },
   manifest: '/manifest.json',
@@ -79,10 +81,13 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="32x32" />
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/logo.jpeg" />
+        <link rel="icon" href="/logo.jpeg" type="image/jpeg" sizes="192x192" />
+        <link rel="apple-touch-icon" href="/logo.jpeg" sizes="180x180" />
+        <link rel="apple-touch-icon" href="/logo.jpeg" sizes="152x152" />
+        <link rel="apple-touch-icon" href="/logo.jpeg" sizes="144x144" />
         <meta name="theme-color" content="#0d9488" />
         <meta name="msapplication-TileColor" content="#0d9488" />
+        <meta name="msapplication-TileImage" content="/logo.jpeg" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className={`${inter.variable} ${manrope.variable} font-sans`}>

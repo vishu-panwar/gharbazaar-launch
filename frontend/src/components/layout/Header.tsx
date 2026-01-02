@@ -140,16 +140,6 @@ export function Header() {
                 About
               </Link>
 
-              <Link
-                href="/listings"
-                className={`px-4 py-2 rounded-lg font-medium transition-all ${isActive('/listings')
-                    ? 'text-teal-600 bg-teal-50'
-                    : 'text-gray-700 hover:text-teal-600 hover:bg-gray-50'
-                  }`}
-              >
-                Properties
-              </Link>
-
               {/* Partner Portal Dropdown */}
               <div className="relative" ref={partnerPortalRef}>
                 <button
@@ -220,6 +210,16 @@ export function Header() {
                   </div>
                 )}
               </div>
+
+              <Link
+                href="/founder"
+                className={`px-4 py-2 rounded-lg font-medium transition-all ${isActive('/founder')
+                    ? 'text-teal-600 bg-teal-50'
+                    : 'text-gray-700 hover:text-teal-600 hover:bg-gray-50'
+                  }`}
+              >
+                Founder
+              </Link>
 
               <Link
                 href="/pricing"
@@ -338,13 +338,6 @@ export function Header() {
               >
                 About
               </Link>
-              <Link
-                href="/listings"
-                className="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 font-medium"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Properties
-              </Link>
 
               {/* Mobile Partner Portal Section */}
               <div className="px-4 py-2">
@@ -403,6 +396,13 @@ export function Header() {
                 </div>
               </div>
 
+              <Link
+                href="/founder"
+                className="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Founder
+              </Link>
               <Link
                 href="/pricing"
                 className="block px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 font-medium"

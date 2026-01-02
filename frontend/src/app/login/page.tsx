@@ -97,9 +97,10 @@ export default function LoginPage() {
             <div className="flex items-center space-x-3">
               <div className="w-12 h-12 relative overflow-hidden rounded-xl shadow-lg">
                 <img
-                  src="/logo.jpeg"
+                  src={`/logo.jpeg?v=${Date.now()}`}
                   alt="GharBazaar Logo"
                   className="w-full h-full object-cover"
+                  loading="eager"
                 />
               </div>
               <div>
@@ -184,9 +185,10 @@ export default function LoginPage() {
               <div className="inline-flex items-center space-x-3 mb-4">
                 <div className="w-10 h-10 relative overflow-hidden rounded-xl shadow-lg">
                   <img
-                    src="/logo.jpeg"
+                    src={`/logo.jpeg?v=${Date.now()}`}
                     alt="GharBazaar Logo"
                     className="w-full h-full object-cover"
+                    loading="eager"
                   />
                 </div>
                 <h1 className="text-xl font-bold text-gray-900 dark:text-white">GharBazaar</h1>

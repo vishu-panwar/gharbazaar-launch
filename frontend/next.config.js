@@ -28,6 +28,8 @@ const nextConfig = {
       },
     ],
     unoptimized: false, // Enable optimization for production
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   
   // Environment variables
@@ -52,6 +54,24 @@ const nextConfig = {
   // Headers for better caching and security
   async headers() {
     return [
+      {
+        source: '/logo.jpeg',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=86400, must-revalidate',
+          },
+        ],
+      },
+      {
+        source: '/favicon.ico',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=86400, must-revalidate',
+          },
+        ],
+      },
       {
         source: '/images/:path*',
         headers: [
