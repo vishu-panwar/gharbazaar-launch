@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import {
   ArrowLeft,
@@ -201,11 +200,10 @@ export default function PaymentPage() {
               <div className="h-6 w-px bg-gray-300 dark:bg-gray-600"></div>
               <div className="flex items-center space-x-3">
                 <div className="w-8 h-8 relative overflow-hidden rounded-lg">
-                  <Image
+                  <img
                     src="/logo.jpeg"
                     alt="GharBazaar Logo"
-                    fill
-                    className="object-cover"
+                    className="w-full h-full object-cover"
                   />
                 </div>
                 <span className="font-semibold text-gray-900 dark:text-white">GharBazaar</span>

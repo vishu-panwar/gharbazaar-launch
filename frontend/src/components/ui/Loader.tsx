@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Image from 'next/image'
 
 interface LoaderProps {
   isVisible: boolean
@@ -47,11 +46,10 @@ export default function Loader({
         {/* Logo */}
         <div className="relative mb-8">
           <div className="w-20 h-20 relative overflow-hidden rounded-3xl shadow-2xl mx-auto">
-            <Image
+            <img
               src="/logo.jpeg"
               alt="GharBazaar Logo"
-              fill
-              className="object-cover"
+              className="w-full h-full object-cover"
             />
           </div>
         </div>

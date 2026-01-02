@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import {
   Mail,
   Lock,
@@ -97,11 +96,10 @@ export default function LoginPage() {
             {/* Logo */}
             <div className="flex items-center space-x-3">
               <div className="w-12 h-12 relative overflow-hidden rounded-xl shadow-lg">
-                <Image
+                <img
                   src="/logo.jpeg"
                   alt="GharBazaar Logo"
-                  fill
-                  className="object-cover"
+                  className="w-full h-full object-cover"
                 />
               </div>
               <div>
@@ -185,11 +183,10 @@ export default function LoginPage() {
             <div className="lg:hidden text-center mb-6">
               <div className="inline-flex items-center space-x-3 mb-4">
                 <div className="w-10 h-10 relative overflow-hidden rounded-xl shadow-lg">
-                  <Image
+                  <img
                     src="/logo.jpeg"
                     alt="GharBazaar Logo"
-                    fill
-                    className="object-cover"
+                    className="w-full h-full object-cover"
                   />
                 </div>
                 <h1 className="text-xl font-bold text-gray-900 dark:text-white">GharBazaar</h1>

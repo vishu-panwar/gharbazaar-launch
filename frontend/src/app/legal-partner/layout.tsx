@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { useTheme } from 'next-themes'
 import { 
@@ -149,11 +148,10 @@ export default function LegalPartnerLayout({ children }: { children: React.React
             <Link href="/" className="flex items-center space-x-4">
               <div className="relative">
                 <div className="h-12 w-12 relative overflow-hidden rounded-2xl shadow-lg">
-                  <Image
+                  <img
                     src="/logo.jpeg"
                     alt="GharBazaar Logo"
-                    fill
-                    className="object-cover"
+                    className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-blue-600 rounded-full border-2 border-white dark:border-gray-950 flex items-center justify-center">

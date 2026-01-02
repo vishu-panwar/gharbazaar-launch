@@ -201,11 +201,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           <div className="flex items-center justify-between px-6 py-5 border-b border-gray-200 dark:border-gray-800">
             <Link href="/" className="flex items-center space-x-2 sm:space-x-3">
               <div className="h-8 sm:h-10 w-8 sm:w-10 relative overflow-hidden rounded-lg shadow-lg">
-                <Image
+                <img
                   src="/logo.jpeg"
                   alt="GharBazaar Logo"
-                  fill
-                  className="object-cover"
+                  className="w-full h-full object-cover"
                 />
               </div>
               <div>

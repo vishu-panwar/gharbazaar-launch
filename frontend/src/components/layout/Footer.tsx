@@ -32,11 +32,10 @@ export function Footer() {
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-3 mb-6">
               <div className="h-12 w-12 relative overflow-hidden rounded-lg shadow-lg">
-                <Image
+                <img
                   src="/logo.jpeg"
                   alt="GharBazaar Logo"
-                  fill
-                  className="object-cover"
+                  className="w-full h-full object-cover"
                 />
               </div>
               <h3 className="text-2xl font-bold bg-gradient-to-r from-teal-400 via-emerald-400 to-blue-400 bg-clip-text text-transparent">
